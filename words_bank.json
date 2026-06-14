@@ -1,0 +1,184 @@
+
+
+{
+  "templates": [
+    {
+      "id": "sujeito_acao_objeto",
+      "structure": ["subject_person", "verb_action", "object_thing"],
+      "pt_template": "{0} {1} {2}."
+    },
+    {
+      "id": "sujeito_e_sujeito_acao",
+      "structure": ["subject_person", "conjunction_and", "subject_person", "verb_action", "object_thing"],
+      "pt_template": "{0} {1} {2} {3} {4}."
+    },
+    {
+      "id": "acao_no_passado",
+      "structure": ["subject_person", "verb_action", "particle_past", "object_thing"],
+      "pt_template": "{0} {1} {3}."
+    },
+    {
+      "id": "local_acao",
+      "structure": ["subject_person", "preposition", "place", "verb_action", "object_thing"],
+      "pt_template": "{0} {3} {4} {1} {2}."
+    },
+    {
+      "id": "negacao_acao",
+      "structure": ["subject_person", "adverb_neg", "verb_action", "object_thing"],
+      "pt_template": "{0} {1} {2} {3}."
+    },
+    {
+      "id": "pergunta_sim_nao",
+      "structure": ["subject_person", "verb_action", "object_thing", "particle_question"],
+      "pt_template": "{0} {1} {2}?"
+    },
+    {
+      "id": "tempo_acao",
+      "structure": ["time", "subject_person", "verb_action", "object_thing"],
+      "pt_template": "{0}, {1} {2} {3}."
+    },
+    {
+      "id": "desejo_acao",
+      "structure": ["subject_person", "verb_modal", "verb_action", "object_thing"],
+      "pt_template": "{0} {1} {2} {3}."
+    },
+    {
+      "id": "transporte_movimento",
+      "structure": ["subject_person", "verb_movement", "place", "preposition_transport", "transport"],
+      "pt_template": "{0} {1} para {2} de {4}."
+    },
+    {
+      "id": "posse_caracteristica",
+      "structure": ["subject_person", "verb_possession", "object_thing", "adjective"],
+      "pt_template": "{0} {1} um(a) {2} {3}."
+    }
+  ],
+  "vocabulary": {
+    "subject_person": [
+      {"zh": "我", "pt": "eu", "py": "wǒ"},
+      {"zh": "你", "pt": "você", "py": "nǐ"},
+      {"zh": "他", "pt": "ele", "py": "tā"},
+      {"zh": "她", "pt": "ela", "py": "tā"},
+      {"zh": "我们", "pt": "nós", "py": "wǒmen"},
+      {"zh": "他们", "pt": "eles", "py": "tāmen"},
+      {"zh": "她们", "pt": "elas", "py": "tāmen"},
+      {"zh": "老师", "pt": "o professor", "py": "lǎoshī"},
+      {"zh": "医生", "pt": "a médica", "py": "yīshēng"},
+      {"zh": "学生", "pt": "o estudante", "py": "xuéshēng"},
+      {"zh": "朋友", "pt": "o amigo", "py": "péngyou"},
+      {"zh": "爸爸", "pt": "o pai", "py": "bàba"},
+      {"zh": "妈妈", "pt": "a mãe", "py": "māma"},
+      {"zh": "哥哥", "pt": "o irmão mais velho", "py": "gēge"},
+      {"zh": "妹妹", "pt": "a irmã mais nova", "py": "mèimei"}
+    ],
+    "conjunction_and": [
+      {"zh": "和", "pt": "e", "py": "hé"}
+    ],
+    "verb_action": [
+      {"zh": "吃", "pt": "come", "py": "chī"},
+      {"zh": "喝", "pt": "bebe", "py": "hē"},
+      {"zh": "买", "pt": "compra", "py": "mǎi"},
+      {"zh": "看", "pt": "lê/vê", "py": "kàn"},
+      {"zh": "听", "pt": "ouve", "py": "tīng"},
+      {"zh": "做", "pt": "faz", "py": "zuò"},
+      {"zh": "学", "pt": "estuda", "py": "xué"},
+      {"zh": "穿", "pt": "veste", "py": "chuān"},
+      {"zh": "洗", "pt": "lava", "py": "xǐ"},
+      {"zh": "写", "pt": "escreve", "py": "xiě"}
+    ],
+    "verb_modal": [
+      {"zh": "想", "pt": "quer", "py": "xiǎng"},
+      {"zh": "喜欢", "pt": "gosta de", "py": "xǐhuan"},
+      {"zh": "会", "pt": "sabe/pode", "py": "huì"}
+    ],
+    "verb_movement": [
+      {"zh": "去", "pt": "vai", "py": "qù"}
+    ],
+    "verb_possession": [
+      {"zh": "有", "pt": "tem", "py": "yǒu"}
+    ],
+    "object_thing": [
+      {"zh": "苹果", "pt": "[a] maçã", "py": "píngguǒ"},
+      {"zh": "茶", "pt": "[o] chá", "py": "chá"},
+      {"zh": "咖啡", "pt": "[o] café", "py": "kāfēi"},
+      {"zh": "水", "pt": "[a] água", "py": "shuǐ"},
+      {"zh": "牛奶", "pt": "[o] leite", "py": "niúnǎi"},
+      {"zh": "果汁", "pt": "[o] suco", "py": "guǒzhī"},
+      {"zh": "米饭", "pt": "[o] arroz", "py": "mǐfàn"},
+      {"zh": "面包", "pt": "[o] pão", "py": "miànbāo"},
+      {"zh": "肉", "pt": "[a] carne", "py": "ròu"},
+      {"zh": "面条", "pt": "[o] macarrão", "py": "miàntiáo"},
+      {"zh": "书", "pt": "[o] livro", "py": "shū"},
+      {"zh": "报纸", "pt": "[o] jornal", "py": "bàozhǐ"},
+      {"zh": "电影", "pt": "[o] filme", "py": "diànyǐng"},
+      {"zh": "音乐", "pt": "[a] música", "py": "yīnyuè"},
+      {"zh": "衣服", "pt": "[a] roupa", "py": "yīfu"},
+      {"zh": "鞋子", "pt": "[os] sapatos", "py": "xiézi"},
+      {"zh": "功课", "pt": "[a] lição de casa", "py": "gōngkè"},
+      {"zh": "信", "pt": "[a] carta", "py": "xìn"},
+      {"zh": "中文", "pt": "[o] chinês", "py": "Zhōngwén"},
+      {"zh": "电脑", "pt": "[o] computador", "py": "diànnǎo"},
+      {"zh": "手机", "pt": "[o] celular", "py": "shǒujī"},
+      {"zh": "猫", "pt": "[o] gato", "py": "māo"},
+      {"zh": "狗", "pt": "[o] cachorro", "py": "gǒu"}
+    ],
+    "adjective": [
+      {"zh": "大", "pt": "grande", "py": "dà"},
+      {"zh": "小", "pt": "pequeno", "py": "xiǎo"},
+      {"zh": "好", "pt": "bom/boa", "py": "hǎo"},
+      {"zh": "漂亮", "pt": "bonito/bonita", "py": "piàoliang"},
+      {"zh": "新", "pt": "novo/nova", "py": "xīn"}
+    ],
+    "preposition": [
+      {"zh": "在", "pt": "no(a)", "py": "zài"}
+    ],
+    "preposition_transport": [
+      {"zh": "坐", "pt": "de", "py": "zuò"}
+    ],
+    "transport": [
+      {"zh": "汽车", "pt": "carro", "py": "qìchē"},
+      {"zh": "公共汽车", "pt": "ônibus", "py": "gōnggòng qìchē"},
+      {"zh": "地铁", "pt": "metrô", "py": "dìtiě"},
+      {"zh": "飞机", "pt": "avião", "py": "fēijī"}
+    ],
+    "place": [
+      {"zh": "家", "pt": "[a] casa", "py": "jiā"},
+      {"zh": "学校", "pt": "[a] escola", "py": "xuéxiào"},
+      {"zh": "饭馆", "pt": "[o] restaurante", "py": "fànguǎn"},
+      {"zh": "医院", "pt": "[o] hospital", "py": "yīyuàn"},
+      {"zh": "商店", "pt": "[a] loja", "py": "shāngdiàn"},
+      {"zh": "办公室", "pt": "[o] escritório", "py": "bàngōngshì"},
+      {"zh": "北京", "pt": "Pequim", "py": "Běijīng"},
+      {"zh": "中国", "pt": "China", "py": "Zhōngguó"}
+    ],
+    "time": [
+      {"zh": "今天", "pt": "Hoje", "py": "jīntiān"},
+      {"zh": "明天", "pt": "Amanhã", "py": "míngtiān"},
+      {"zh": "昨天", "pt": "Ontem", "py": "zuótiān"}
+    ],
+    "adverb_neg": [
+      {"zh": "不", "pt": "não", "py": "bù"}
+    ],
+    "particle_past": [
+      {"zh": "了", "pt": "", "py": "le"}
+    ],
+    "particle_question": [
+      {"zh": "吗", "pt": "", "py": "ma"}
+    ]
+  },
+  "rules": {
+    "吃": { "object_thing": ["苹果", "米饭", "面包", "肉", "面条"] },
+    "喝": { "object_thing": ["茶", "咖啡", "水", "牛奶", "果汁"] },
+    "买": { "object_thing": ["苹果", "茶", "咖啡", "水", "牛奶", "果汁", "面包", "肉", "书", "报纸", "衣服", "鞋子", "电脑", "手机"] },
+    "看": { "object_thing": ["书", "报纸", "电影"] },
+    "听": { "object_thing": ["音乐"] },
+    "做": { "object_thing": ["功课", "米饭"] },
+    "学": { "object_thing": ["中文"] },
+    "穿": { "object_thing": ["衣服", "鞋子"] },
+    "洗": { "object_thing": ["衣服", "苹果"] },
+    "写": { "object_thing": ["信", "功课", "中文"] },
+    "想": { "verb_action": ["吃", "喝", "买", "看", "听", "做", "学", "穿", "洗", "写"] },
+    "喜欢": { "verb_action": ["吃", "喝", "买", "看", "听", "做", "学", "穿", "洗", "写"] },
+    "会": { "verb_action": ["做", "学", "写", "吃", "喝"] }
+  }
+}

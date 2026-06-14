@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Vitheorem | Mandarim</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/SKPYHMmJ/VI-THEOREM.jpg">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <h1 class="text-center mb-4">VITHEOREM</h1>
+
+    <!-- Navegação por abas -->
+    <ul class="nav nav-tabs" id="mainTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="quiz-tab" data-bs-toggle="tab" data-bs-target="#quiz" type="button" role="tab">🕮 Palavras</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="translator-tab" data-bs-toggle="tab" data-bs-target="#translator" type="button" role="tab">𖡎 Tradutor</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="call-tab" data-bs-toggle="tab" data-bs-target="#call" type="button" role="tab">✦ Língxī AI</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="sentence-tab" data-bs-toggle="tab" data-bs-target="#sentence" type="button" role="tab">𓄲 Frases</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="calligraphy-tab" data-bs-toggle="tab" data-bs-target="#calligraphy" type="button" role="tab">𓂃🖊 Caligrafia</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="material-tab" data-bs-toggle="tab" data-bs-target="#material" type="button" role="tab">🕮 Material</button>
+      </li>
+    </ul>
+
+    <div class="tab-content mt-3" id="mainTabsContent">
+      <!-- Aba 1: Quiz de palavras -->
+      
+
+      <div class="tab-pane fade show active" id="quiz" role="tabpanel">
+  
+      <hr class="mt-5 mb-4">
+            
+            <div class="bg-light p-4 rounded shadow-sm text-start">
+              <h4 class="mb-1 text-dark">➤ Dicionário de Mandarim</h4>
+              <p class="text-muted small mb-3">Pesquise por ideograma, pinyin ou tradução em português.</p>
+              
+              <div class="input-group mb-3">
+                <input type="text" id="dict-search-input" class="form-control form-control-lg" placeholder="Ex: 你好, nǐ, obrigado, verbo...">
+                <button class="btn btn-dark px-4" id="dict-search-btn">➤ Pesquisar</button>
+              </div>
+              
+              <div id="dict-results" class="p-2" style="display: none;">
+                </div>
+            </div>
+            
+        <div class="card">
+    <div class="card-body">
+      <div class="card mb-4 border-primary">
+  <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">╰┈➤ Criar Quiz Personalizado</h5>
+    <span class="badge bg-light text-primary" id="custom-count">0 selecionadas</span>
+  </div>
+  <div class="card-body">
+    <p class="small text-muted">Selecione pelo menos 4 palavras para ativar o seu modo de treino personalizado.</p>
+    
+    <div class="input-group mb-3">
+      <input type="text" id="search-custom-word" class="form-control" placeholder="Busque por português, chinês ou pinyin...">
+    </div>
+    
+    <div id="custom-search-results" class="d-flex flex-wrap gap-1 mb-3" style="max-height: 120px; overflow-y: auto;"></div>
+    
+    <div id="custom-selected-words" class="d-flex flex-wrap gap-1 mb-3"></div>
+    
+    <div class="d-flex gap-2">
+      <button id="btn-start-custom-quiz" class="btn btn-primary" disabled>Iniciar ☕︎</button>
+      <button id="btn-clear-custom-quiz" class="btn btn-outline-secondary" style="display: none;">Voltar ao Quiz Normal 📚</button>
+    </div>
+  </div>
+</div>
+      
+      <!-- Filtro de Categorias -->
+      <div class="mb-4">
+        <label class="form-label fw-bold mb-2">Quiz: </label>
+        <div id="category-filters" class="d-flex flex-wrap gap-2 justify-content-center">
+          <!-- Os botões de filtro serão gerados dinamicamente -->
+        </div>
+      </div>
+      
+      <hr class="mb-4">
+      
+      
+      <!-- Área do Quiz -->
+      <div class="text-center">
+        <h2 id="quiz-word" class="display-4 mb-2">--</h2>
+        <p id="quiz-pinyin" class="text-muted"></p>
+        <div id="quiz-options" class="d-grid gap-2 col-6 mx-auto"></div>
+        <button id="next-word" class="btn btn-primary mt-3" style="display:none;">╰┈➤</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <!-- Aba 2: Tradutor -->
+      <div class="tab-pane fade" id="translator" role="tabpanel">
+        <div class="card">
+          <div class="card-body">
+            
+            <div class="d-flex align-items-center justify-content-center gap-3 mb-3 bg-light p-2 rounded border">
+              <span id="label-source" class="fw-bold text-secondary">Português</span>
+              <button id="swap-lang-btn" class="btn btn-outline-primary btn-sm" type="button">⟳</button>
+              <span id="label-target" class="fw-bold text-success">Mandarim</span>
+            </div>
+
+            <div class="mb-3">
+              <label for="input-text" id="label-input-box" class="form-label">Texto de origem:</label>
+              <textarea class="form-control" id="input-text" rows="3" placeholder="Digite algo para traduzir..."></textarea>
+            </div>
+            
+            <button id="translate-btn" class="btn btn-success w-100 py-2 fs-5">Traduzir</button>
+            
+            <hr>
+            
+            <div id="translation-container" style="display:none;">
+              <h6 class="text-muted mb-1">Resultado:</h6>
+              <div class="alert alert-success fs-3 fw-bold mb-2" id="translation-result"></div>
+              
+              <div id="pinyin-container" class="alert alert-warning border mt-2" style="display:none;">
+                <small class="text-muted d-block font-monospace">Leitura em Pinyin:</small>
+                <span id="translation-pinyin" class="fs-5 fw-semibold text-dark"></span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Aba 3: The Call (chat com IA) -->
+      <div class="tab-pane fade" id="call" role="tabpanel">
+  <div class="card">
+    <div class="card-body d-flex flex-column" style="height: 70vh;">
+      <div id="chat-box" class="flex-grow-1 overflow-auto mb-3 border p-3 rounded bg-light"></div>
+      
+      <div class="input-group">
+        <button id="mic-chat" class="btn btn-outline-secondary" type="button" title="Falar por voz">🎤︎︎</button>
+        
+        <select id="chat-level" class="form-select text-center" style="max-width: 150px;">
+          <option value="Very Beginner" selected>Very Beginner</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Medium">Medium</option>
+          <option value="Advanced">Advanced</option>
+        </select>
+
+        <input type="text" id="chat-input" class="form-control" placeholder="Fale no microfone ou digite em mandarim...">
+        <button id="send-chat" class="btn btn-dark">Enviar</button>
+      </div>
+      
+      <small class="text-muted mt-1">Atualize a página para reiniciar o chat.</small>
+    </div>
+  </div>
+</div>
+
+      <!-- Aba 4: Montar frases -->
+      <div class="tab-pane fade" id="sentence" role="tabpanel">
+        <div class="card">
+          <div class="card-body text-center">
+            <h5 class="mb-2">Traduza esta frase:</h5>
+            <h3 id="target-translation" class="text-primary mb-4">...</h3>
+            
+            <div id="sentence-build-area" class="d-flex flex-wrap align-content-start gap-2 mb-4 p-3 border rounded bg-light" style="min-height: 80px; border-style: dashed !important;">
+            </div>
+            
+            <div id="word-pool-area" class="d-flex flex-wrap justify-content-center gap-2 mb-4" style="min-height: 60px;">
+            </div>
+            
+            <div class="d-grid gap-2 d-md-block">
+              <button id="check-sentence-btn" class="btn btn-success btn-lg">Verificar</button>
+              <button id="new-words-btn" class="btn btn-secondary btn-lg">Pular ⏭</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="tab-pane fade" id="calligraphy" role="tabpanel">
+        <!-- Aba 5: Caligrafia -->
+<div class="row mb-3">
+  <div class="col-md-6 position-relative">
+    <label class="form-label fw-bold">Buscar Caractere:</label>
+    <input type="text" id="char-search-input" class="form-control form-control-lg" 
+           placeholder="Digite ideograma, pinyin ou português..." autocomplete="off">
+    <ul id="char-suggestions" class="list-group position-absolute w-100 shadow" 
+        style="display:none; z-index:1000; max-height:250px; overflow-y:auto;"></ul>
+  </div>
+  <div class="col-md-3">
+    <label class="form-label fw-bold">Dificuldade:</label>
+    <select id="difficulty-filter" class="form-select">
+      <option value="todas">Todas</option>
+      <option value="fácil">Fácil</option>
+      <option value="médio">Médio</option>
+      <option value="difícil">Difícil</option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <label class="form-label fw-bold">Precisão:</label>
+    <div class="progress" style="height: 38px;">
+      <div id="accuracy-bar" class="progress-bar progress-bar-striped progress-bar-animated" 
+           role="progressbar" style="width: 0%;">
+        <span class="fw-bold">0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <!-- Informações do caractere -->
+      <div id="char-info" class="alert alert-info mb-3" style="display: none;">
+        <div class="row text-center">
+          <div class="col-4">
+            <small class="text-muted">Pinyin</small>
+            <h4 id="char-pinyin" class="mb-0">-</h4>
+          </div>
+          <div class="col-4">
+            <small class="text-muted">Tradução</small>
+            <h4 id="char-translation" class="mb-0">-</h4>
+          </div>
+          <div class="col-4">
+            <small class="text-muted">Traços</small>
+            <h4 id="char-strokes" class="mb-0">-</h4>
+          </div>
+        </div>
+      </div>
+
+      <!-- Área de desenho -->
+      <div class="canvas-container position-relative mx-auto" style="max-width: 500px;">
+        <canvas id="calligraphy-canvas" 
+                class="border border-3 rounded-3 shadow w-100 bg-white"
+                style="touch-action: none; cursor: crosshair; aspect-ratio: 1;">
+        </canvas>
+        
+        <!-- Botões de controle sobrepostos -->
+        <div class="d-flex gap-2 mt-3 justify-content-center flex-wrap">
+          <button id="clear-canvas-btn" class="btn btn-outline-danger btn-lg">
+            Limpar
+          </button>
+          <button id="check-calligraphy-btn" class="btn btn-success btn-lg">
+            Verificar
+          </button>
+          <button id="toggle-guide-btn" class="btn btn-outline-primary btn-lg active">
+            👁️
+          </button>
+          <div class="vr d-none d-md-block"></div>
+          <div class="btn-group">
+            <button id="undo-stroke-btn" class="btn btn-outline-secondary">
+              ↩️
+            </button>
+            <button id="brush-size-sm" class="btn btn-outline-secondary" title="Pincel fino">
+              🖊️
+            </button>
+            <button id="brush-size-md" class="btn btn-outline-secondary active" title="Pincel médio">
+              🖋️
+            </button>
+            <button id="brush-size-lg" class="btn btn-outline-secondary" title="Pincel grosso">
+              🖌️
+            </button>
+          </div>
+        </div>
+
+        <!-- Dicas -->
+        <div class="alert alert-warning mt-3 small">
+          ╰┈➤ <strong>Dicas:</strong>
+          <ul class="mb-0 mt-2">
+            <li><strong>Mouse/Caneta:</strong> Clique e arraste para desenhar</li>
+            <li><strong>Touch:</strong> Use o dedo na tela</li>
+            <li><strong>Mesa digitalizadora:</strong> Compatível com pressão</li>
+            <li>O caractere guia aparece como sombra para ajudar</li>
+          </ul>
+        </div>
+      </div>
+</div>
+    </div>
+  </div>
+</div>
+  <div id="loading-screen">
+    <div class="loading-particle" style="left:10%;animation-duration:12s;animation-delay:0s;">學</div>
+    <div class="loading-particle" style="left:25%;animation-duration:15s;animation-delay:2s;">中</div>
+    <div class="loading-particle" style="left:50%;animation-duration:10s;animation-delay:1s;">文</div>
+    <div class="loading-particle" style="left:70%;animation-duration:13s;animation-delay:3s;">語</div>
+    <div class="loading-particle" style="left:85%;animation-duration:11s;animation-delay:0.5s;">漢</div>
+    <div class="loading-kanji">中文</div>
+    <div class="loading-title">Vitheorem | Mandarim</div>
+    <div class="loading-subtitle">carregando o universo chinês...</div>
+    <div class="loading-bar-track">
+      <div class="loading-bar-fill"></div>
+    </div>
+  </div>
+  
+  <div class="tab-pane fade" id="material" role="tabpanel">
+     <iframe src="https://vitheoremguiadeestudosmandarim.netlify.app/" width="100%" height="600px" style="border: none;"></iframe>
+  </div>
+  <script>
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        var s = document.getElementById('loading-screen');
+        if (s) {
+          s.classList.add('fade-out');
+          setTimeout(function() { s.remove(); }, 1000);
+        }
+      }, 2800);
+    });
+  
+     
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
