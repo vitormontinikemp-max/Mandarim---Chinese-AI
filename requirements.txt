@@ -9,7 +9,6 @@ googletrans==4.0.0rc1
 pypinyin==0.55.0
 jieba==0.42.1
 pydub==0.25.1
-scipy==1.16.0
 deep-translator==1.11.4
 numpy==2.3.0
 cffi==1.17.1
