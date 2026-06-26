@@ -666,136 +666,81 @@ let correctSentenceOrder = [];
 
 
 async function loadWordsForSentence() {
-
   const buildArea = document.getElementById('sentence-build-area');
-
   const poolArea = document.getElementById('word-pool-area');
-
   const targetTrans = document.getElementById('target-translation');
-
   
+  // 1. CAPTURA A DIFICULDADE ATUAL
+  // Tenta buscar um elemento select ou input de nível na tela. Se não achar, assume 'medium' como padrão.
+  const difficultyElement = document.getElementById('sentence-difficulty');
+  const difficulty = difficultyElement ? difficultyElement.value : 'medium';
 
   // Garante que os containers existam antes de limpar
-
   if (buildArea) buildArea.innerHTML = '';
-
   if (poolArea) poolArea.innerHTML = '';
-
   if (targetTrans) targetTrans.textContent = 'Carregando...';
 
-
   try {
-
-    const res = await fetch('/api/words-for-sentence');
-
+    // 2. ENVIA A DIFICULDADE NA REQUISIÇÃO (Ex: /api/words-for-sentence?difficulty=easy)
+    const res = await fetch(`/api/words-for-sentence?difficulty=${difficulty}`);
     const data = await res.json();
-
     
-
     if (data.error) {
-
       if (targetTrans) targetTrans.textContent = "Erro ao carregar frase.";
-
       return;
-
     }
 
-
     // Alimenta a frase em português do topo
-
     if (targetTrans) targetTrans.textContent = data.portuguese;
-
     
-
     // Mapeia a ordem correta guardando apenas os caracteres puros para a validação final
-
     correctSentenceOrder = data.correct_order.map(item => item.char);
 
-
     // Processa a lista de objetos embaralhados gerados pelo Python
-
     data.shuffled_words.forEach(wordObj => {
-
       const btn = document.createElement('div');
-
       btn.className = 'duo-word';
-
       btn.textContent = wordObj.char; // Printa o caractere chinês no quadrado
 
-
       // Define o Pinyin no atributo para o efeito de hover do CSS
-
       btn.setAttribute('data-pinyin', wordObj.pinyin);
 
-
       // Bloqueia o menu de contexto nativo do navegador
-
       btn.addEventListener('contextmenu', (e) => e.preventDefault());
 
-
-      // Clique com botão direito (mousedown com e.button === 2): Mostra balão de tradução isolada
-
+      // Clique com botão direito: Mostra balão de tradução isolada
       btn.addEventListener('mousedown', (e) => {
-
         if (e.button === 2) {
-
           showPopupDica(btn, wordObj.translation);
-
         }
-
       });
-
 
       // Soltar o clique ou arrastar o mouse para fora remove o balão da dica
-
       btn.addEventListener('mouseup', (e) => {
-
         if (e.button === 2) removePopupDica();
-
       });
-
       btn.addEventListener('mouseleave', () => {
-
         removePopupDica();
-
       });
 
-
-      // Clique com botão esquerdo (e.button === 0): Move o quadrado de área
-
+      // Clique com botão esquerdo: Move o quadrado de área
       btn.addEventListener('click', (e) => {
-
         if (e.button === 0) {
-
           if (btn.parentElement.id === 'word-pool-area') {
-
             if (buildArea) buildArea.appendChild(btn);
-
           } else {
-
             if (poolArea) poolArea.appendChild(btn);
-
           }
-
         }
-
       });
-
       
-
       if (poolArea) poolArea.appendChild(btn);
-
     });
 
-
   } catch (err) {
-
     console.error("Erro na renderização do Front-end:", err);
-
     if (targetTrans) targetTrans.textContent = "Erro de conexão com o servidor.";
-
   }
-
 }
 
 
