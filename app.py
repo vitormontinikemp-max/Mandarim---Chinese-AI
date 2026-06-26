@@ -420,19 +420,25 @@ def words_for_sentence():
             "hard": "A frase deve ser um pouco mais elaborada, contendo entre 6 e 9 palavras, incluindo conectivos simples, expressões de tempo ou locais (ex: 'Ontem à noite eu fui ao restaurante com meus amigos e comi macarrão')."
         }
 
-        # Fallback caso passem algo fora do esperado
-        regrade_dificuldade = dificuldades_config.get(difficulty, dificultades_config["medium"])
+        # Fallbacks locais caso a IA sofra instabilidade ou timeout
+        fallbacks = {
+            "super-easy": "Eu como arroz.",
+            "easy": "Eu gosto de café.",
+            "medium": "O professor bebe café de manhã.",
+            "hard": "Ontem à noite eu fui ao restaurante com meus amigos."
+        }
+
+        # Definição do fallback inicial
+        regra_dificuldade = dificuldades_config.get(difficulty, dificuldades_config["medium"])
+        frase_pt = fallbacks.get(difficulty, "O professor bebe café de manhã.")
         
         prompt_groq = (
             f"Escreva exatamente uma única frase em português do Brasil. "
-            f"{regrade_dificuldade} "
+            f"{regra_dificuldade} "
             f"A frase deve ser natural e comum no dia a dia. Não copie os exemplos. "
             f"Gere uma frase diferente a cada resposta. Não adicione explicações, comentários, aspas, "
             f"emojis, listas, numeração, títulos ou qualquer texto antes ou depois da frase. Retorne apenas a frase."
         )
-        
-        # Valor padrão caso a resposta venha nula ou dê timeout
-        frase_pt = "O professor bebe café de manhã."
         
         try:
             response = requests.post(
@@ -457,23 +463,21 @@ def words_for_sentence():
                     if conteudo:
                         frase_pt = conteudo.strip()
             else:
-                print(f"⚠️ Groq retornou status {response.status_code} no jogo.")
+                print(f"⚠️ Groq retornou status {response.status_code} no jogo. Usando fallback.")
         except Exception as e_groq:
-            print(f"⚠️ Erro ao tentar chamar a API da Groq: {e_groq}")
+            print(f"⚠️ Erro ao tentar chamar a API da Groq: {e_groq}. Usando fallback.")
 
-        # Instancia o deep-translator para quebrar e mandar para os quadrados
-        tradutor_pt_zh = GoogleTranslator(source='pt', target='zh-CN')
-        tradutor_zh_pt = GoogleTranslator(source='zh-CN', target='pt')
-        
+        # CORREÇÃO CRÍTICA: Utilizando o tradutor correto importado no topo do seu código (googletrans)
         try:
-            frase_zh = tradutor_pt_zh.translate(frase_pt)
-        except Exception as e_deep:
-            print(f"⚠️ Falha no deep-translator na frase completa: {e_deep}")
+            res_zh = translator.translate(frase_pt, src='pt', dest='zh-cn')
+            frase_zh = str(res_zh.text) if res_zh and res_zh.text else "老师早上喝咖啡"
+        except Exception as e_trans:
+            print(f"⚠️ Falha na tradução completa para o Chinês: {e_trans}")
             frase_zh = "老师早上喝咖啡"
             frase_pt = "O professor bebe café de manhã."
 
         # Limpa as pontuações para isolar só os ideogramas puristas nos blocos
-        frase_zh_limpa = frase_zh.replace("。", "").replace("？", "").replace("，", "").strip()
+        frase_zh_limpa = frase_zh.replace("。", "").replace("？", "").replace("，", "").replace(" ", "").strip()
         
         correct_order_objects = []
         
@@ -486,15 +490,17 @@ def words_for_sentence():
             resultado_pinyin = pypinyin.pinyin(char, style=pypinyin.Style.TONE)
             py_text = resultado_pinyin[0][0] if resultado_pinyin else ""
             
-            # Significado individual para o botão direito
-            significado = ""
+            # Traduz caractere individual para a dica do botão direito
+            significado = "termo"
             try:
-                significado = tradutor_zh_pt.translate(char)
+                res_pt = translator.translate(char, src='zh-cn', dest='pt')
+                if res_pt and res_pt.text:
+                    significado = str(res_pt.text)
             except:
                 pass
             
-            # Fallback inteligente se a API falhar no caractere avulso
-            if not significado or significado == "termo":
+            # Fallback inteligente se a API falhar no caractere avulso usando o vocabulário local
+            if not significado or significado.lower() == "termo":
                 significado = "termo"
                 if 'vocabulary' in globals():
                     for word in vocabulary:
