@@ -165,6 +165,17 @@
       <div class="tab-pane fade" id="sentence" role="tabpanel">
         <div class="card">
           <div class="card-body text-center">
+            
+            <div class="d-flex align-items-center justify-content-center gap-2 mb-3">
+              <label for="sentence-difficulty" class="fw-bold text-secondary mb-0">Dificuldade:</label>
+              <select id="sentence-difficulty" class="form-select form-select-sm text-center" style="max-width: 160px;">
+                <option value="super-easy">Super Fácil </option>
+                <option value="easy">Fácil </option>
+                <option value="medium" selected>Médio </option>
+                <option value="hard">Difícil </option>
+              </select>
+            </div>
+
             <h5 class="mb-2">Traduza esta frase:</h5>
             <h3 id="target-translation" class="text-primary mb-4">...</h3>
             
