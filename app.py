@@ -330,6 +330,7 @@ Rules:
 - Act like a patient conversation partner helping the user improve their Mandarin through real communication.
 - If the user say something in Portuguese,English, or any language other than Chinese, respond in their language but before you say something, tell , in their language, that you don´t kno how to speak thei language very well.
 Your goal is to make the user feel like they are chatting with a native Chinese friend.
+IMPORTANT: Avoid using "welcome to use Chinese" or "welcome to talk in Chinese." in the end of the phrase all the time.
 """
     ).format(classificacao=user_level) # Injeta dinamicamente o nível escolhido no input
 
@@ -410,35 +411,7 @@ def words_for_sentence():
     try:
         
         prompt_groq = (
-                    "Escreva uma frase muito simples, curta e comum em português do Brasil "
-                    "sobre coisas do dia a dia. Exemplos: Eu estou com fome."
-                    "Eu estou com sede.Vou trabalhar.Vou para a escola.Já cheguei."
-                    "Estou cansado."
-                    "Estou feliz."
-                    "Estou ocupado."
-                    "Onde você está?"
-                    "O que você está fazendo?"
-                    "Eu gosto de café."
-                    "Eu gosto de música."
-                    "Preciso estudar."
-                    "Preciso dormir."
-                    "Vamos comer."
-                    "Vamos embora."
-                    "Espere um momento."
-                    "Muito obrigado."
-                    "De nada."
-                    "Até amanhã."
-                    "Está chovendo."
-                    "Está fazendo calor."
-                    "Está fazendo frio."
-                    "Hoje é segunda-feira."
-                    "Amanhã tenho aula."
-                    "Meu pai está trabalhando."
-                    "Minha mãe está cozinhando."
-                    "Eu vou ao mercado."
-                    "Ele está assistindo TV."
-                    "Ela está ouvindo música."
-                    "Não adicione nenhuma explicação, aspas, pontuação especial ou numeração. Apenas a frase."
+                    "Escreva exatamente uma única frase em português do Brasil. A frase deve ser muito simples, curta, natural e comum no dia a dia, como algo que uma pessoa diria em uma conversa cotidiana. Use vocabulário básico e estruturas fáceis de entender. A frase deve ter entre 2 e 7 palavras e tratar de situações comuns, como trabalho, escola, casa, família, comida, clima, transporte, descanso ou atividades diárias. Não copie os exemplos. Gere uma frase diferente a cada resposta. Não adicione explicações, comentários, aspas, emojis, listas, numeração, títulos ou qualquer texto antes ou depois da frase. Retorne apenas a frase."
         )
         
         # Valor padrão caso a resposta venha nula ou dê timeout
