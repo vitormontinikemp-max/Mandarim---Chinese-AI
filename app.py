@@ -409,9 +409,26 @@ def tts():
 @app.route("/api/words-for-sentence")
 def words_for_sentence():
     try:
+        # Captura a dificuldade enviada pelo front-end (padrão 'medium' se não for enviada)
+        difficulty = request.args.get("difficulty", "medium").lower()
+
+        # Dicionário que altera as regras do prompt da IA com base na dificuldade escolhida
+        dificuldades_config = {
+            "super-easy": "A frase deve ser EXTREMAMENTE simples e curta, contendo exatamente entre 2 e 3 palavras (ex: 'Eu como arroz', 'Ele bebe água'). Use apenas sujeitos e verbos ultra-básicos.",
+            "easy": "A frase deve ser simples e curta, contendo entre 3 e 4 palavras fáceis do dia a dia (ex: 'Eu gosto de café', 'Ela estuda muito').",
+            "medium": "A frase deve ser comum no dia a dia, natural, contendo entre 4 e 6 palavras e tratando de situações cotidianas (ex: 'O professor bebe café de manhã', 'Eu vou ao mercado de ônibus').",
+            "hard": "A frase deve ser um pouco mais elaborada, contendo entre 6 e 9 palavras, incluindo conectivos simples, expressões de tempo ou locais (ex: 'Ontem à noite eu fui ao restaurante com meus amigos e comi macarrão')."
+        }
+
+        # Fallback caso passem algo fora do esperado
+        regrade_dificuldade = dificuldades_config.get(difficulty, dificultades_config["medium"])
         
         prompt_groq = (
-                    "Escreva exatamente uma única frase em português do Brasil. A frase deve ser muito simples, curta, natural e comum no dia a dia, como algo que uma pessoa diria em uma conversa cotidiana. Use vocabulário básico e estruturas fáceis de entender. A frase deve ter entre 2 e 7 palavras e tratar de situações comuns, como trabalho, escola, casa, família, comida, clima, transporte, descanso ou atividades diárias. Não copie os exemplos. Gere uma frase diferente a cada resposta. Não adicione explicações, comentários, aspas, emojis, listas, numeração, títulos ou qualquer texto antes ou depois da frase. Retorne apenas a frase."
+            f"Escreva exatamente uma única frase em português do Brasil. "
+            f"{regrade_dificuldade} "
+            f"A frase deve ser natural e comum no dia a dia. Não copie os exemplos. "
+            f"Gere uma frase diferente a cada resposta. Não adicione explicações, comentários, aspas, "
+            f"emojis, listas, numeração, títulos ou qualquer texto antes ou depois da frase. Retorne apenas a frase."
         )
         
         # Valor padrão caso a resposta venha nula ou dê timeout
@@ -425,17 +442,16 @@ def words_for_sentence():
                     "Content-Type": "application/json"
                 },
                 json={
-                    "model": "llama-3.1-8b-instant",  # Troque por este modelo oficial
+                    "model": "llama-3.1-8b-instant",
                     "messages": [{"role": "user", "content": prompt_groq}],
                     "temperature": 0.8,
-                    "max_tokens": 60
+                    "max_tokens": 80
                 },
                 timeout=5
             )
             
             if response.status_code == 200 and response.text:
                 res_data = response.json()
-                # Verifica se a estrutura de escolhas da IA realmente existe antes de acessar
                 if res_data and "choices" in res_data and len(res_data["choices"]) > 0:
                     conteudo = res_data["choices"][0]["message"]["content"]
                     if conteudo:
