@@ -25,7 +25,7 @@ app.secret_key = os.environ.get("FLASK_SECRET_KEY", "chave_secreta_padrao_muito_
 app.template_folder = "."
 
 # Configure sua chave da Groq
-GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "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")
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "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")
 
 # Inicializa tradutor
 translator = Translator()
